@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="../static/javascript/vue.min.js" th:src="@{/static/javascript/vue.min.js}"></script>
+</head>
+<body>
+    <h1>hahaha</h1>
+    <input th:value="${user.id}">
+    <div id="test">
+        <h1>{{msg}}</h1>
+    </div>
+    <script type="text/javascript">
+        var test = new Vue({
+            el: '#test',
+            data:{
+                msg:'你好'
+            }
+            
+        })
+    </script>
+</body>
+</html>
