@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agent.erp.dao.InnerManageMapper">
+  <resultMap id="BaseResultMap" type="com.agent.erp.model.InnerManageVo" >
+    <!-- <id column="id" property="deptName" jdbcType="INTEGER" /> -->
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="v1" property="v1" jdbcType="VARCHAR" />
+	<result column="v2" property="v2" jdbcType="VARCHAR" />
+	<result column="v3" property="v3" jdbcType="VARCHAR" />
+	<result column="v4" property="v4" jdbcType="VARCHAR" />
+	<result column="v5" property="v5" jdbcType="VARCHAR" />
+	<result column="v6" property="v6" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectSt" resultMap="BaseResultMap" resultType="com.agent.erp.model.InnerManageVo">
+    SELECT  coalesce(d.name, '总计') dept_name, coalesce(u.real_name, '整体') user_name, 
+	main.v1,
+	main.v2,
+	main.v3,
+	main.v4,
+	main.v5,
+	main.v6
+	FROM
+	(
+		SELECT depart.id did, user.id uid, 
+		SUM(IF(p1.value='潜力',1,0)) AS v1,
+		SUM(IF(p1.value='权限',1,0)) AS v2,
+		SUM(IF(p1.value='增件',1,0)) AS v3,
+		SUM(IF(p2.value='常态',1,0)) AS v4,
+		SUM(IF(p2.value='暂停',1,0)) AS v5,
+		SUM(IF(p2.value='停止',1,0)) AS v6
+		FROM customer cu 
+		INNER JOIN user ON user.id=cu.city_person_id
+		INNER JOIN depart ON depart.id=user.depart_id
+		LEFT JOIN param p1 ON cu.state_id=p1.id
+		LEFT JOIN param p2 ON cu.stopped=p2.id
+		GROUP BY depart.id, user.id WITH ROLLUP
+	) main
+	LEFT JOIN user u ON u.id=main.uid
+	LEFT JOIN depart d ON d.id=main.did
+	ORDER BY main.did, main.uid
+  </select>
+</mapper>
