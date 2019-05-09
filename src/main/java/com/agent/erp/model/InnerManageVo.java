@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class InnerManageVo {
 	
-    private String deptName;
-    private String userName;
+    private String name;
     private String v1;
     private String v2;
     private String v3;
