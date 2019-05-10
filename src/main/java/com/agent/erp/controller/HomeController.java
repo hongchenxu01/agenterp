@@ -58,7 +58,7 @@ public class HomeController extends BaseController{
 		
 	}
 	
-	@RequestMapping("api")
+	@RequestMapping("/api")
 	@ResponseBody
 	public List<InnerManageVo> api(Model model) {
 		

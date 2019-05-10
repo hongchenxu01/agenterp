@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <script src="../static/javascript/vue.min.js" th:src="@{/static/javascript/vue.min.js}"></script>
+    <script src="../static/javascript/vue-resource.min.js" th:src="@{/static/javascript/vue-resource.min.js}"></script>
 </head>
 <body>
     <h1>hahaha</h1>
     <div id="test">
         <h1>{{msg}}</h1>
+        <input type="button" @click="test()" value="点我异步获取数据(api)">
     </div>
     <form name="myform" method="post">
         <div style="margin: 0 auto;text-align: center;">
@@ -21,13 +23,23 @@
       <button type="submit" class="button">登录</button>
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
+    
+    
     <script type="text/javascript">
         var test = new Vue({
             el: '#test',
             data:{
                 msg:'login'
+            },
+            methods:{
+            	test:function(){
+            		this.$http.get("/erp/api").then(function(res){
+                        document.write(res.body);    
+                    },function(){
+                        console.log('请求失败处理');
+                    });
+            	}
             }
-            
         })
     </script>
 </body>
