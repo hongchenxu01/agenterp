@@ -24,7 +24,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 			.and()
 			.authorizeRequests()
-	        .antMatchers("/**", "/static/**").permitAll()
+	        .antMatchers("/static/**").permitAll()
 	        .antMatchers("/admin/**","/upload/**").hasAnyRole("ADMIN")
 	        .anyRequest().authenticated()
 	        .and()
