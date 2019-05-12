@@ -4,21 +4,41 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <script src="../static/javascript/vue.min.js" th:src="@{/static/javascript/vue.min.js}"></script>
+    <script src="../static/javascript/vue-resource.min.js" th:src="@{/static/javascript/vue-resource.min.js}"></script>
 </head>
 <body>
     <h1>hahaha</h1>
-    <input th:value="${user.id}">
     <div id="test">
         <h1>{{msg}}</h1>
     </div>
-    <script type="text/javascript">
-        var test = new Vue({
-            el: '#test',
-            data:{
-                msg:'你好'
-            }
-            
-        })
-    </script>
+
+    <table>
+         <tr th:each="innerManage:${innerManageList}">
+                <td th:text="${innerManage.name}"></td>
+                <td th:text="${innerManage.v1}"></td>
+                <td th:text="${innerManage.v2}"></td>
+                <td th:text="${innerManage.v3}"></td>
+                <td th:text="${innerManage.v4}"></td>
+                <td th:text="${innerManage.v5}"></td>
+                <td th:text="${innerManage.v6}"></td>
+        </tr>
+    </table>
 </body>
+<script type="text/javascript">
+    var test = new Vue({
+        el: '#test',
+        data:{
+            msg:'index'
+        },
+        methods:{
+            test:function(){
+                this.$http.get("/erp/api").then(function(res){
+                    console.info(res);
+                },function(){
+                    console.log('请求失败处理');
+                });
+            }
+        }
+    })
+</script>
 </html>
