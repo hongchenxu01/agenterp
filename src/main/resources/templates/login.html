@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>登陆页面</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../static/css/elementui.css" th:href="@{/static/css/elementui.css}"></link>
     <script src="../static/javascript/vue.min.js" th:src="@{/static/javascript/vue.min.js}"></script>
+    <script src="../static/javascript/elementui.js" th:src="@{/static/javascript/elementui.js}"></script>
 </head>
 <body>
     <form name="myform" method="post">
         <div style="margin: 0 auto;text-align: center;">
         <span th:text="${error}" style="color: red; line-height: 20px;"></span>
         </div>
+        
+		<div id="app">
+    	<button class="el-button">操作按钮j</button>
+		</div>
+		
+		
       <span>登录名</span>
       <input type="text" id="username" name="username" required="required" placeholder="用户名/用户编号" class="input"/><br/> 
       <span class="name">密码</span>
